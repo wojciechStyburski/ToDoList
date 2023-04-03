@@ -1,0 +1,95 @@
+@baseUrl = http://localhost:5000
+
+### Healthy
+GET {{baseUrl}}/HealthChecker
+
+### sign-up | Create account
+POST {{baseUrl}}/Users/sign-up
+Content-Type: application/json
+
+{
+  "email": "w.styburski@gmail.com",
+  "userName": "w_styburski",
+  "password": "password123",
+  "role": "user"
+}
+
+### sign-in | Login
+POST {{baseUrl}}/Users/sign-in
+Content-Type: application/json
+{
+    "email": "w.styburski@gmail.com",
+    "password": "password123"
+}
+
+### access token
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYjM5NThiMC02ZWU5LTRmMjMtODUyNS0wZWZhZGMzYzY0NGQiLCJ1bmlxdWVfbmFtZSI6ImNiMzk1OGIwLTZlZTktNGYyMy04NTI1LTBlZmFkYzNjNjQ0ZCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJuYmYiOjE2ODA1MzIyNzgsImV4cCI6MTY4MDUzNTg3OCwiaXNzIjoiVG9Eb0xpc3RBcHAtaXNzdWVyIiwiYXVkIjoiVG9Eb0xpc3RBcHAtYXVkaWVuY2UifQ.cJe03Zr0ZJEwDh-GYnrPp95ZmYf2fjHm_91iAWJ4_FQ
+
+### get account details
+GET {{baseUrl}}/Users
+Authorization: Bearer {{token}}
+
+### get all categories
+GET {{baseUrl}}/Categories
+
+### get user categories
+GET {{baseUrl}}/Categories
+Authorization: Bearer {{token}}
+
+###
+@categoryId = 7c0d7f7c-d2c8-4f34-9d0c-787990500378
+
+### create category
+POST {{baseUrl}}/Categories
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Nauka",
+  "description": "Kategoria nauka"
+}
+
+### change category description
+PUT {{baseUrl}}/Categories
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Nauka",
+  "description": "Kategoria Nauka"
+}
+
+### get tasks
+GET {{baseUrl}}/Tasks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "page": 1,
+  "pageSize": 5,
+  "sort": "",
+  "filter": ""
+}
+
+### create task 
+POST {{baseUrl}}/Tasks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "taskName": "Nauka języka angielskiego",
+  "categoryId": "{{categoryId}}"
+}
+
+#
+@taskId = 3219ab4b-767e-49bb-8948-2c706ffc7187
+
+### complete task
+PUT {{baseUrl}}/Tasks/complete-task/{{taskId}}
+Authorization: Bearer {{token}}
+
+### restore task 
+PUT {{baseUrl}}/Tasks/restore-task/{{taskId}}
+Authorization: Bearer {{token}}
+
+
